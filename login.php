@@ -5,7 +5,7 @@
 <?php
 session_start();
 //read connection.php file for connect mysql database
-include_once "conexion.php"; 
+include_once "connection.php"; 
 function verificar_login($user,$password,&$result) {
     $sql = "SELECT * FROM usuarios WHERE usuario = '$user' and password = '$password'";
     $rec = mysql_query($sql);
@@ -94,7 +94,7 @@ form.login div input[type="submit"] {
 } else {
 ?>
 <!-- logout function -->
-	<?php
+<?php
 	
     echo '<a href="logout.php"><h3>Logout</h3></a>';
 }
