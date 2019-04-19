@@ -1,16 +1,16 @@
 <html>
 <body>
 <head>
-
 </head>
 <?php
 session_start();
-//read connection.php for connection to mysql database
-include_once "conexion.php";
+//read connection.php file for connect mysql database
+include_once "conexion.php"; 
 function verificar_login($user,$password,&$result) {
     $sql = "SELECT * FROM usuarios WHERE usuario = '$user' and password = '$password'";
     $rec = mysql_query($sql);
     $count = 0;
+ 
     while($row = mysql_fetch_object($rec))
     {
         $count++;
@@ -27,6 +27,7 @@ function verificar_login($user,$password,&$result) {
         return 0;
     }
 }
+ 
 if(!isset($_SESSION['userid']))
 {
     if(isset($_POST['login']))
@@ -34,15 +35,15 @@ if(!isset($_SESSION['userid']))
       if(verificar_login($_POST['user'],md5($_POST['password']),$result) == 1) 	
         {
             $_SESSION['userid'] = $result->idusuario;
-            header("location:index.php");
+            header("location:login.php");
         }
         else
         {
-            echo '<div class="error">Su usuario es incorrecto, intente nuevamente.</div>';
+            echo '<div class="error">User incorrect. Try again.</div>';
         }
     }
 ?>
-<!-- css for login page -->
+<!-- CSS from style -->
 <style type="text/css">
 *{
     font-size: 14px;
@@ -83,12 +84,20 @@ form.login div input[type="submit"] {
 }
 
 </style>
-<!-- Form login -->
+ 
 <form action="" method="post" class="login">
     <div><label>Username</label><input name="user" type="text" ></div>
     <div><label>Password</label><input name="password" type="password"></div>
     <div><input name="login" type="submit" value="login"></div>
-    
- <!-- logout from login page -->   
+</form>
+<?php
+} else {
+?>
+<!-- logout function -->
+	<?php
+	
+    echo '<a href="logout.php"><h3>Logout</h3></a>';
+}
+?>
 </body>
 </html>
